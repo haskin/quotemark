@@ -2,13 +2,13 @@
     "name": "Quotemark",
     "version": "1.0",
     "description": "Save quotes into an extension!",
-    "permissions": ["storage"],
+    "permissions": ["activeTab","declarativeContent","storage"],
     "background": {
-        "scripts": ["background.js"],
-        "persistent": false
+        "scripts": ["background.js"]
     },
     "page_action": {
-        "default_popup": "popup.html"
+        "default_popup": "popup.html",
+        "default_icon":"icon.png"
     },
     "manifest_version": 2
   }
