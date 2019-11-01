@@ -5,7 +5,14 @@ chrome.storage.sync.clear(() => {
   }
 });
 
+const highlightQuote = () => {
+  chrome.tabs.executeScript({
+    file: 'contentScript.js'
+  });
+}
+
 const saveQuote = (info, tab) => {
+  highlightQuote();
   const quote = info.selectionText;
   const pageUrl = info.pageUrl;
 

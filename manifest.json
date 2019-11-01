@@ -11,6 +11,12 @@
         "default_icon":"icon512x512.png"
 
     },
+    "content_scripts": [{
+        "matches": ["<all_urls>"],
+        "all_frames": true,
+        "js": ["contentscript.js"]
+        }
+    ],
     "icons" : {
         "16": "icon16x16.png"
     },
