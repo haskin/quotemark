@@ -4,9 +4,16 @@ function onClickHandler(event) {
   const quote = event.target.text;
   const pageUrl = event.target.href;
   // chrome.tabs.update({url:pageUrl});
+
+  //Waits until the new tab is loaded
   chrome.tabs.onActivated.addListener(function(){
+    
     chrome.tabs.query({url: pageUrl}, function(tabs){
-      chrome.extension.getBackgroundPage().console.log(tabs);
+      tabs.forEach((tab) => {
+        chrome.extension.getBackgroundPage().console.log(tab.id);
+        chrome.tabs.sendMessage(tab.id, {quote: quote});
+        chrome.tabs.executeScript(tab.id, {file:"goToQuote.js"});
+      });     
     });
   });
 
