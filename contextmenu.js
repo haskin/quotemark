@@ -7,7 +7,7 @@ chrome.storage.sync.clear(() => {
 
 const highlightQuote = (tab) => {
   chrome.tabs.executeScript(tab.id,{ 
-    file: 'contentScript.js'
+    file: 'contentscript.js'
   });
 }
 

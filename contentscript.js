@@ -1,5 +1,3 @@
-// console.log(document.body.innerHTML);
-
 function highlight(){
     const html = document.body.innerHTML;
     const notHighlightedText = window.getSelection().toString();

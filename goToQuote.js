@@ -1,3 +1,5 @@
+console.log("in goTo.js");
+
 const goTo = (quote) => {
     chrome.extension.getBackgroundPage().console.log(quote);
     const notHighlightedText = quote;
@@ -9,11 +11,11 @@ const goTo = (quote) => {
 };
 
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
-    // console.log(message);
+
     console.log(message);
     goTo(message);
 });
-// goTo();
+goTo();
 
 // chrome.tabs.onActivated.addListener(function(object){
 //     console.log(object);

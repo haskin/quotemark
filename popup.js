@@ -1,22 +1,36 @@
 function onClickHandler(event) {
   //Maybe wait until page loads somehow
   
-  // const quote = event.target.text;
+  const quote = event.target.text;
   // const pageUrl = event.target.href;
+  const pageUrl = event.target.target;
   // mostRecent = quote;
-
-
-  chrome.tabs.onActivated.addListener(function(object){
-    chrome.extension.getBackgroundPage().console.log(object);
-    chrome.tabs.query({url: pageUrl}, function(tabs){
-      tabs.forEach((tab) => {
-        console.log(tab);
-        chrome.extension.getBackgroundPage().console.log(tab.id);
-        chrome.tabs.sendMessage(tab.id, {quote: quote});
-        chrome.tabs.executeScript(tab.id, {file:"goToQuote.js"});
-      });     
-    });
+  
+  //Send message to backgroundpage
+  chrome.runtime.sendMessage({quote:event.target.text, pageURL: event.target.target}, () => {
+    //Message sent to background script
   });
+
+  //Moving logic to background page
+  // chrome.tabs.create({url: pageUrl, active: false } , function(tab){
+  //  // chrome.extension.getBackgroundPage().console.log(tab);
+  //  // console.log(tab.id);
+  //   chrome.tabs.sendMessage(tab.id, {quote: quote});
+  //   chrome.tabs.update({url:pageUrl, active:true}, )
+  //   chrome.tabs.executeScript(tab.id, {file:"goToQuote.js"});
+  // });
+
+  // chrome.tabs.onActivated.addListener(function(object){
+  //   chrome.extension.getBackgroundPage().console.log(object);
+  //   chrome.tabs.query({url: pageUrl}, function(tabs){
+  //     tabs.forEach((tab) => {
+  //       console.log(tab);
+  //       chrome.extension.getBackgroundPage().console.log(tab.id);
+  //       chrome.tabs.sendMessage(tab.id, {quote: quote});
+  //       chrome.tabs.executeScript(tab.id, {file:"goToQuote.js"});
+  //     });     
+  //   });
+  // });
   // chrome.tabs.update({url:pageUrl});
 
   //Waits until the new tab is loaded
@@ -80,7 +94,8 @@ chrome.storage.sync.get(null, function(items) {
     // node.onclick = onClickHandler(dataObject[key].quote);
     data.onclick = onClickHandler;
     data.className = "quoteContainer__quote";
-	  data.target = "_blank";
+    // data.target = "_blank";
+    data.target = dataObject[key].pageUrl;
       node.appendChild(data);
       node.appendChild(hr);
       document.getElementById("items").appendChild(node); ///append Item
