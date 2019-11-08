@@ -15,14 +15,14 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 });
 // goTo();
 
-chrome.tabs.onActivated.addListener(function(object){
-    console.log(object);
-    chrome.tabs.query({url: pageUrl}, function(tabs){
-      tabs.forEach((tab) => {
-        console.log(tab);
-        chrome.extension.getBackgroundPage().console.log(tab.id);
-        chrome.tabs.sendMessage(tab.id, {quote: quote});
-        chrome.tabs.executeScript(tab.id, {file:"goToQuote.js"});
-      });     
-    });
-  });
+// chrome.tabs.onActivated.addListener(function(object){
+//     console.log(object);
+//     chrome.tabs.query({url: pageUrl}, function(tabs){
+//       tabs.forEach((tab) => {
+//         console.log(tab);
+//         chrome.extension.getBackgroundPage().console.log(tab.id);
+//         chrome.tabs.sendMessage(tab.id, {quote: quote});
+//         chrome.tabs.executeScript(tab.id, {file:"goToQuote.js"});
+//       });     
+//     });
+//   });

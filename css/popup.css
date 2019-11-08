@@ -1,0 +1,11 @@
+li {
+    list-style-type: none;
+}
+.quoteContainer__quote{
+    color: #0000EE;
+}
+
+.quoteContainer__quote:hover{
+    color: #551A8B;
+    cursor: pointer;
+}

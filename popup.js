@@ -1,5 +1,3 @@
-let mostRecent = "";
-
 function onClickHandler(event) {
   //Maybe wait until page loads somehow
   
@@ -9,7 +7,7 @@ function onClickHandler(event) {
 
 
   chrome.tabs.onActivated.addListener(function(object){
-    console.log(object);
+    chrome.extension.getBackgroundPage().console.log(object);
     chrome.tabs.query({url: pageUrl}, function(tabs){
       tabs.forEach((tab) => {
         console.log(tab);
@@ -65,17 +63,7 @@ function onClickHandler(event) {
 //   chrome.tabs.executeScript({file:"goToQuote.js"});
 // }
 
-chrome.tabs.onActivated.addListener(function(object){
-  console.log(object);
-  chrome.tabs.query({url: pageUrl}, function(tabs){
-    tabs.forEach((tab) => {
-      console.log(tab);
-      chrome.extension.getBackgroundPage().console.log(tab.id);
-      chrome.tabs.sendMessage(tab.id, {quote: quote});
-      chrome.tabs.executeScript(tab.id, {file:"goToQuote.js"});
-    });     
-  });
-});
+
 
 chrome.storage.sync.get(null, function(items) {
   var allKeys = Object.keys(items);
@@ -85,13 +73,16 @@ chrome.storage.sync.get(null, function(items) {
     chrome.storage.sync.get([key], dataObject => {
       console.log("dataObject:", dataObject[key].pageUrl);
 	  var node = document.createElement("LI"); // Create a <li> node
-	  var data = document.createElement("a");
-	  data.href = dataObject[key].pageUrl;
+    var data = document.createElement("a");
+    const hr = document.createElement("hr");
+	  // data.href = dataObject[key].pageUrl;
     data.text = dataObject[key].quote;
     // node.onclick = onClickHandler(dataObject[key].quote);
     data.onclick = onClickHandler;
+    data.className = "quoteContainer__quote";
 	  data.target = "_blank";
       node.appendChild(data);
+      node.appendChild(hr);
       document.getElementById("items").appendChild(node); ///append Item
     });
   });
