@@ -1,21 +1,27 @@
+let mostRecent = "";
+
 function onClickHandler(event) {
   //Maybe wait until page loads somehow
   
-  const quote = event.target.text;
-  const pageUrl = event.target.href;
-  // chrome.tabs.update({url:pageUrl});
+  // const quote = event.target.text;
+  // const pageUrl = event.target.href;
+  // mostRecent = quote;
 
-  //Waits until the new tab is loaded
-  chrome.tabs.onActivated.addListener(function(){
-    
+
+  chrome.tabs.onActivated.addListener(function(object){
+    console.log(object);
     chrome.tabs.query({url: pageUrl}, function(tabs){
       tabs.forEach((tab) => {
+        console.log(tab);
         chrome.extension.getBackgroundPage().console.log(tab.id);
         chrome.tabs.sendMessage(tab.id, {quote: quote});
         chrome.tabs.executeScript(tab.id, {file:"goToQuote.js"});
       });     
     });
   });
+  // chrome.tabs.update({url:pageUrl});
+
+  //Waits until the new tab is loaded
 
   // chrome.tabs.query({url: pageUrl}, function(tabs){
   //   chrome.extension.getBackgroundPage().console.log(tabs);
@@ -35,9 +41,6 @@ function onClickHandler(event) {
   //     // });     
   //   })
   // });})
-  window.onload = (event) => {
-    chrome.extension.getBackgroundPage().console.log('page is fully loaded');
-  }; 
 }
 // function onClickHandler(event) {
 //   const quote = event.target.text;
@@ -61,6 +64,18 @@ function onClickHandler(event) {
 //   });
 //   chrome.tabs.executeScript({file:"goToQuote.js"});
 // }
+
+chrome.tabs.onActivated.addListener(function(object){
+  console.log(object);
+  chrome.tabs.query({url: pageUrl}, function(tabs){
+    tabs.forEach((tab) => {
+      console.log(tab);
+      chrome.extension.getBackgroundPage().console.log(tab.id);
+      chrome.tabs.sendMessage(tab.id, {quote: quote});
+      chrome.tabs.executeScript(tab.id, {file:"goToQuote.js"});
+    });     
+  });
+});
 
 chrome.storage.sync.get(null, function(items) {
   var allKeys = Object.keys(items);
