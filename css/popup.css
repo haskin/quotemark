@@ -1,11 +1,21 @@
+body {
+    width: 250px;
+}
 li {
     list-style-type: none;
 }
 .quoteContainer__quote{
     color: #0000EE;
+    display:inline-block;
+    font-size:14px;
 }
 
 .quoteContainer__quote:hover{
     color: #551A8B;
     cursor: pointer;
+    background-color: yellow;
+}
+
+.quoteContainer__URL{
+    font-size: 10px;
 }
