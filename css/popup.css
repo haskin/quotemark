@@ -4,10 +4,19 @@ body {
 li {
     list-style-type: none;
 }
+hr {
+    width:100%;
+}
+.quoteContainer {
+    display:flex;
+    align-items: flex-start;
+    flex-wrap:wrap;
+}
 .quoteContainer__quote{
     color: #0000EE;
-    display:inline-block;
+    display:inline;
     font-size:14px;
+    flex:1;
 }
 
 .quoteContainer__quote:hover{
@@ -16,6 +25,14 @@ li {
     background-color: yellow;
 }
 
+.quoteContainer__delete{
+    padding:0;
+    float:right;
+    border-radius: 8px;
+    font-weight: bold;
+    background-color: rgba(235, 0, 0, 0.959);
+    font-size: 14px;
+}
 .quoteContainer__URL{
     font-size: 10px;
 }

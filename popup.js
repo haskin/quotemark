@@ -41,8 +41,8 @@ function setPopUp() {
 			// data.target = "_blank";
 			quoteContent.target = data.pageURL;
 			quoteContainer.appendChild(quoteContent);
-			quoteContainer.appendChild(quoteURL);
 			quoteContainer.appendChild(deleteButton);
+			quoteContainer.appendChild(quoteURL);
 			quoteContainer.appendChild(hr);
 			document.querySelector(".quotesContainer").appendChild(quoteContainer); ///append Item
 		});
