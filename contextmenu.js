@@ -1,9 +1,9 @@
-chrome.storage.sync.clear(() => {
-  var error = chrome.runtime.lastError;
-  if (error) {
-    console.error(error);
-  }
-});
+// chrome.storage.sync.clear(() => {
+//   var error = chrome.runtime.lastError;
+//   if (error) {
+//     console.error(error);
+//   }
+// });
 
 const highlightQuote = (tab) => {
   chrome.tabs.executeScript(tab.id,{ 
@@ -20,12 +20,20 @@ const saveQuote = (info, tab) => {
   var object = {};
   var data = {};
   data["quote"] = quote;
-  data["pageUrl"] = pageUrl;
+  data["pageURL"] = pageUrl;
   object[timestamp] = data;
   console.log("Here: ", object);
-  chrome.storage.sync.set(object, function() {
-    console.log(object);
+
+  chrome.storage.sync.get("quoteMarkKey", function(object) {
+    const  storageArray = object.quoteMarkKey;
+    storageArray.push(data);
+    chrome.storage.sync.set({"quoteMarkKey": storageArray}, function() {
+      //Set the array
+    });
   });
+  // chrome.storage.sync.set(object, function() {
+  //   console.log(object);
+  // });
 };
 
 chrome.contextMenus.create({

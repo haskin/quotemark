@@ -11,6 +11,14 @@ chrome.runtime.onInstalled.addListener(function() {
       });
 });
 
+//Insert empty array into local storage sync
+const QUOTEMARK_KEY = "quoteMarkKey";
+chrome.runtime.onInstalled.addListener(function(){
+  chrome.storage.sync.set({"quoteMarkKey":[]}, function() {
+      console.log("Set empty array into local storage.");
+    });
+});
+
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if(request.action === "createTab"){
     chrome.tabs.create({url: request.pageURL, active:true} , function(tab){
