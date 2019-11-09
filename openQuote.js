@@ -1,21 +1,25 @@
 console.log("in goTo.js");
 
 const goTo = (quote) => {
-    chrome.extension.getBackgroundPage().console.log(quote);
     const notHighlightedText = quote;
     const html = document.body.innerHTML;
     // console.log(html);
-    const highlightedText = "<mark>" + notHighlightedText + "</mark>";
+    const highlightedText = "<mark class='quotemark__quote'>" + notHighlightedText + "</mark>";
     const newInnerHTML = html.replace(notHighlightedText, highlightedText);
     document.body.innerHTML = newInnerHTML;
+
+    const highlightedQuote = document.querySelector(".quotemark__quote");
+    highlightedQuote.scrollIntoView();
 };
 
-chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
-
-    console.log(message);
-    goTo(message);
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    if(request.action === "openQuote"){
+        goTo(request.quote);
+    }
+    // console.log(request);
+    sendResponse("Quote is being opened.");
 });
-goTo();
+// goTo();
 
 // chrome.tabs.onActivated.addListener(function(object){
 //     console.log(object);

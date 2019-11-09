@@ -6,8 +6,11 @@ function onClickHandler(event) {
   const pageUrl = event.target.target;
   // mostRecent = quote;
   
+  const request = {quote:event.target.text, 
+                  pageURL: event.target.target, 
+                  action:"createTab"}
   //Send message to backgroundpage
-  chrome.runtime.sendMessage({quote:event.target.text, pageURL: event.target.target}, () => {
+  chrome.runtime.sendMessage(request, () => {
     //Message sent to background script
   });
 

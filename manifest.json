@@ -2,7 +2,7 @@
     "name": "Quotemark",
     "version": "1.0",
     "description": "Save quotes into an extension!",
-    "permissions": ["tabs", "contextMenus","activeTab","declarativeContent","storage"],
+    "permissions": ["tabs", "contextMenus","<all_urls>","declarativeContent","storage"],
     "background": {
         "scripts": ["background.js", "contextmenu.js"]
     },
