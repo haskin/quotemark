@@ -9,7 +9,7 @@ function setPopUp() {
 	//New Quotes Container
 	const quotesContainer = document.createElement("DIV");
 	quotesContainer.className = "quotesContainer";
-	document.getElementById("mainBody").appendChild(quotesContainer);
+	document.getElementById("popUpBody").appendChild(quotesContainer);
 
 	chrome.storage.sync.get("quoteMarkKey", function (object) {
 		const storage = object.quoteMarkKey;
